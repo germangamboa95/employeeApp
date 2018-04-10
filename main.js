@@ -14,30 +14,39 @@ const database = firebase.database();
 
 
 // New employee added event listener
-database.ref('employee').on('child_added', function(snapshot) {
-  console.log(snapshot.val());
+ database.ref('employee/').on('child_added', function(snapshot) {
+  console.log('Change!');
   add_row(snapshot.val());
 });
 
 
-addEmployee('Shahar','designer', '1234', '9000');
-
 // add employee to database
-function addEmployee(name, role, start_date, monthly_rate ) {
+function addEmployee(name, role, start_date, positiveAmount, monthly_rate, totalBilled ) {
   const employee_model = {
     name: name,
     role: role,
     start_date: start_date,
+    total_months: positiveAmount,
     monthly_rate: monthly_rate,
+    totalBilled: totalBilled,
     added_date: firebase.database.ServerValue.TIMESTAMP
   }
 
-  database.ref('employee').push().set(employee_model);
+  database.ref('employee/').push().set(employee_model);
 
 }
 
 
 function add_row(data) {
   console.log(data);
-  $('table').append(`<tr> he ${data.name} </tr>`);
+  $('#employeeTable').append(`<tr>
+    <td>${data.name}</td>
+    <td>${data.role}</td>
+    <td>${data.start_date}</td>
+    <td>${data.total_months}</td>
+    <td>${data.monthly_rate}</td>
+    <td>${data.totalBilled}</td>
+
+
+    <tr>`);
 }
