@@ -14,8 +14,9 @@ const database = firebase.database();
 
 
 // New employee added event listener
-database.ref('employee').on('value', function(snapshot) {
+database.ref('employee').on('child_added', function(snapshot) {
   console.log(snapshot.val());
+  add_row(snapshot.val());
 });
 
 
@@ -36,6 +37,7 @@ function addEmployee(name, role, start_date, monthly_rate ) {
 }
 
 
-function add_row() {
-
+function add_row(data) {
+  console.log(data);
+  $('table').append(`<tr> he ${data.name} </tr>`);
 }
