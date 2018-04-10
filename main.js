@@ -40,3 +40,6 @@ function addEmployee(name, role, start_date, monthly_rate ) {
   database.ref('employee').push().set(employee_model);
 
 }
+
+
+function
